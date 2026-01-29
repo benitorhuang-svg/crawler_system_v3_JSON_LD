@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "platform": "platform_yourator",
+    "url": "https://www.yourator.co/companies/Aidmics/jobs/39515",
+    "source_id": "39515",
+    "company_source_id": "Aidmics",
+    "title": "國際市場業務實習生-西文組",
+    "description": "【工作內容】 1. 參與國際市場的線上及線下展會籌備、產品展示及後續追蹤 2. 協助主管，進行國際市場調查、售後服務 3. 其他主管交辦事項 公司地址：台北市羅斯福路三段 171 號 11 樓之一",
+    "industry": "教育 / 教學",
+    "layer_category_name": "教育 / 教學",
+    "job_type": "實習",
+    "work_hours": null,
+    "salary_currency": "TWD",
+    "salary_type": "面議",
+    "salary_text": "面議",
+    "salary_min": null,
+    "salary_max": null,
+    "address_country": "TW",
+    "address": "台北市羅斯福路三段 171 號 11 樓之一",
+    "region": "台北市",
+    "district": "台北市台北市",
+    "experience_min_years": 0,
+    "education_text": "不拘",
+    "posted_at": "2026-01-29T00:00:00",
+    "valid_through": "2112-09-03T00:00:00",
+    "raw_json": "{\"_url\": \"https://www.yourator.co/companies/Aidmics/jobs/39515\", \"@type\": \"JobPosting\", \"title\": \"國際市場業務實習生-西文組\", \"@context\": \"https://schema.org/\", \"datePosted\": \"2026-01-29 02:00:06 +0800\", \"identifier\": {\"name\": \"億觀生物科技股份有限公司\", \"@type\": \"PropertyValue\", \"value\": 39515}, \"description\": \"<p><meta charset=\\\"UTF-8\\\" />iSperm 智慧行動精子分析系統 (mCASA)，服務超過 75 個國家的獸醫、動物繁殖者與畜牧從業人員，協助他們以好上手的科學化解決方案，完成動物繁殖工作。準確度經國外多個研究、檢驗單位驗證，並發表於專業期刊論文上。iSperm 更負起社會公益責任，成為世界各地拯救瀕絕動物研究團隊的絕佳夥伴。其中，全球知名的英國切斯特動物園 (Chester Zoo) 採用 iSperm 研究其動物不孕問題，過程也被拍攝，收錄於 BBC 的紀錄片 - The Secret Life of the Zoo 當中。<br /><br><br /><br>▌網站：https://www.isperm.co/<br /><br><br /><br>【工作內容】<br /><br><br /><br>1. 參與國際市場的線上及線下展會籌備、產品展示及後續追蹤<br /><br>2. 協助主管，進行國際市場調查、售後服務<br /><br>3. 其他主管交辦事項</p><br><br><br>公司地址：台北市羅斯福路三段 171 號 11 樓之一\", \"jobLocation\": {\"@type\": \"Place\", \"address\": {\"@type\": \"PostalAddress\", \"addressRegion\": \"臺北市\", \"streetAddress\": \"台北市羅斯福路三段 171 號 11 樓之一\", \"addressCountry\": \"TW\", \"addressLocality\": \"臺北市\"}}, \"validThrough\": \"2112-09-03\", \"employmentType\": \"INTERN\", \"hiringOrganization\": {\"logo\": \"https://s3cdn.yourator.co/companies/logos/000/000/277/thumb/afb184ff074dddf70d22083ab3a053b9377482b3.png\", \"name\": \"Aidmics 億觀生技\", \"@type\": \"Organization\", \"sameAs\": \"https://tw.loveuhandy.com\"}}",
+    "data_source_layer": "L1",
+    "updated_at": "2026-01-29T05:41:54"
+  }
+]

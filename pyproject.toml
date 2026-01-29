@@ -1,0 +1,38 @@
+[project]
+name = "crawler-system-v3-json-ld"
+version = "0.1.0"
+description = "Scalable Job Crawler focused on JSON-LD extraction"
+dependencies = [
+    "beautifulsoup4>=4.12.0",
+    "pydantic>=2.0.0",
+    "httpx>=0.24.0",
+    "structlog>=23.0.0",
+    "h2>=4.3.0",
+    "fastapi>=0.128.0",
+    "uvicorn>=0.40.0",
+    "aiomysql>=0.3.2",
+    "cryptography>=46.0.3",
+    "playwright>=1.57.0",
+    "playwright-stealth>=2.0.1",
+    "taskiq>=0.12.1",
+    "taskiq-redis>=1.2.1",
+    "redis>=7.1.0",
+    "celery[amqp]>=5.6.2",
+    "amqp>=5.3.1",
+    "flower>=2.0.1",
+    "jsonschema>=4.26.0",
+    "psutil>=7.2.1",
+    "pytest-asyncio>=1.3.0",
+    "python-levenshtein>=0.27.3",
+    "python-dotenv>=1.2.1",
+    "pydantic-settings>=2.0.0",
+    "PyYAML>=6.0.0",
+    "prometheus-client>=0.19.0",
+]
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "playwright>=1.40.0",
+]

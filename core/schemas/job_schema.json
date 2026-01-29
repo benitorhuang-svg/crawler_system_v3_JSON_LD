@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JobPosting",
+  "description": "Standardized Job Posting Schema based on schema.org/JobPosting and internal requirements",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "enum": [
+        "platform_104",
+        "platform_1111",
+        "platform_cakeresume",
+        "platform_yes123",
+        "platform_yourator",
+        "platform_unknown"
+      ],
+      "description": "The source platform of the job posting"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Normalized job posting URL"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Platform-specific job ID"
+    },
+    "company_source_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Platform-specific company ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Cleaned job description"
+    },
+    "industry": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Industry or profession category"
+    },
+    "layer_category_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "System category name (Layer 3)"
+    },
+    "job_type": {
+      "type": "string",
+      "description": "Employment type (e.g., Full-time, Internship)"
+    },
+    "salary_currency": {
+      "type": "string",
+      "default": "TWD"
+    },
+    "salary_type": {
+      "type": "string",
+      "enum": [
+        "月薪",
+        "時薪",
+        "年薪",
+        "日薪",
+        "由案件決定",
+        "面議"
+      ]
+    },
+    "salary_min": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "salary_max": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "address_country": {
+      "type": "string",
+      "default": "TW"
+    },
+    "address": {
+      "type": "string",
+      "description": "Full formatted address"
+    },
+    "experience_min_years": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "posted_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "platform",
+    "url",
+    "title"
+  ]
+}

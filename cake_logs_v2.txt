@@ -1,0 +1,7 @@
+{"platform": "platform_cakeresume", "category": null, "limit": 5, "event": "session_started", "level": "info", "timestamp": "2026-01-29T06:06:07.577865Z"}
+{"url": "redis://localhost:6379/0", "event": "redis_connected", "level": "info", "timestamp": "2026-01-29T06:06:07.582242Z"}
+{"event": "db_init_started", "level": "info", "timestamp": "2026-01-29T06:06:07.584880Z"}
+/home/soldier/crawler_system_v3_JSON_LD/.venv/lib/python3.14/site-packages/aiomysql/cursors.py:239: Warning: Can't create database 'crawler_db'; database exists
+  await self._query(query)
+{"event": "db_init_finished", "level": "info", "timestamp": "2026-01-29T06:06:07.675776Z"}
+{"platform": "platform_cakeresume", "cat_limit": null, "event": "pipeline_started", "level": "info", "timestamp": "2026-01-29T06:06:07.675891Z"}

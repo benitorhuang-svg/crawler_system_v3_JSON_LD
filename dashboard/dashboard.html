@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crawler Data Engine | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --accent: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-group h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-card .val {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-card .label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .controls {
+            max-width: 1200px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.25rem;
+        }
+
+        .tabs button {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tabs button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.8rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            background: rgba(30, 41, 59, 0.4);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        td:first-child {
+            border-left: 1px solid var(--glass-border);
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        td:last-child {
+            border-right: 1px solid var(--glass-border);
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .id-link {
+            color: var(--primary);
+            font-family: monospace;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .id-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .highlighter {
+            animation: highlight 3s ease-out;
+        }
+
+        @keyframes highlight {
+            0% {
+                background: rgba(16, 185, 129, 0.5);
+            }
+
+            100% {
+                background: rgba(30, 41, 59, 0.4);
+            }
+        }
+
+        .salary {
+            color: var(--accent);
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .ext-link {
+            color: var(--text-dim);
+            transition: color 0.2s;
+        }
+
+        .ext-link:hover {
+            color: var(--primary);
+        }
+
+        .null-value {
+            color: #ef4444;
+            opacity: 0.4;
+            font-size: 0.7rem;
+            font-family: monospace;
+            font-style: italic;
+        }
+
+        .table-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            max-height: 750px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title-group">
+            <h1><i data-lucide="database"></i> Crawler Data Engine</h1>
+            <p style="color: var(--text-dim); margin-top: 0.5rem;">Job Market Intelligence & Company Enrichment</p>
+        </div>
+        <div class="stats-group">
+            <div class="glass stat-card">
+                <i data-lucide="briefcase" style="color: var(--primary);"></i>
+                <div>
+                    <div class="val" id="job-count">0</div>
+                    <div class="label">Jobs Sync</div>
+                </div>
+            </div>
+            <div class="glass stat-card">
+                <i data-lucide="building-2" style="color: var(--accent);"></i>
+                <div>
+                    <div class="val" id="company-count">0</div>
+                    <div class="label">Companies</div>
+                </div>
+            </div>
+            <div class="glass stat-card">
+                <i data-lucide="map-pin" style="color: #6366f1;"></i>
+                <div>
+                    <div class="val" id="geo-coverage">0%</div>
+                    <div class="label">Geo Coverage</div>
+                </div>
+            </div>
+            <div class="glass stat-card">
+                <i data-lucide="layers" style="color: #f59e0b;"></i>
+                <div>
+                    <div class="val" id="layer-ratio">L1:0 / L2:0</div>
+                    <div class="label">Quality Layers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="glass tabs">
+            <button id="tab-jobs" class="active" onclick="switchTab('jobs')"><i data-lucide="table"></i> Jobs
+                Table</button>
+            <button id="tab-companies" onclick="switchTab('companies')"><i data-lucide="building-2"></i>
+                Companies</button>
+            <button id="tab-health" onclick="switchTab('health')"><i data-lucide="activity"></i> Health Monitor</button>
+        </div>
+        <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="search-input" placeholder="Search anything..." oninput="render()">
+        </div>
+    </div>
+
+    <div class="glass table-container">
+        <table id="data-table">
+            <thead>
+                <tr id="table-head"></tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        let jobs = [];
+        let companies = [];
+        let health_data = [];
+        let activeTab = 'jobs';
+        const API_BASE = "/api";
+
+        async function init() {
+            try {
+                const [jRes, cRes, sRes, hRes] = await Promise.all([
+                    fetch(`${API_BASE}/jobs`).then(r => r.json()),
+                    fetch(`${API_BASE}/companies`).then(r => r.json()),
+                    fetch(`${API_BASE}/stats`).then(r => r.json()),
+                    fetch(`${API_BASE}/health`).then(r => r.json())
+                ]);
+                jobs = jRes;
+                companies = cRes;
+                health_data = hRes;
+                document.getElementById('job-count').innerText = sRes.job_count;
+                document.getElementById('company-count').innerText = sRes.company_count;
+                document.getElementById('geo-coverage').innerText = `${sRes.geo_coverage}%`;
+
+                const l1 = sRes.layers['L1'] || 0;
+                const l2 = sRes.layers['L2'] || 0;
+                document.getElementById('layer-ratio').innerText = `L1:${l1} / L2:${l2}`;
+                render();
+                lucide.createIcons();
+            } catch (err) {
+                console.error("Fetch failed", err);
+                alert("Failed to connect to backend server. Make sure dashboard_server.py is running!");
+            }
+        }
+
+        function switchTab(tab) {
+            activeTab = tab;
+            document.getElementById('tab-jobs').classList.toggle('active', tab === 'jobs');
+            document.getElementById('tab-companies').classList.toggle('active', tab === 'companies');
+            document.getElementById('tab-health').classList.toggle('active', tab === 'health');
+            render();
+            lucide.createIcons();
+        }
+
+        const formatVal = (val) => {
+            if (val === null || val === undefined || val === '' || val === 'NULL' || val === 'None') {
+                return '<span class="null-value">NULL</span>';
+            }
+            return val;
+        };
+
+        function render() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const head = document.getElementById('table-head');
+            const body = document.getElementById('table-body');
+            body.innerHTML = '';
+
+            if (activeTab === 'jobs') {
+                head.innerHTML = `
+                    <th>ID<br><span style="font-size: 0.6rem; opacity: 0.5;">自動遞增主鍵</span></th>
+                    <th>Platform<br><span style="font-size: 0.6rem; opacity: 0.5;">平台代碼</span></th>
+                    <th>Job Source ID<br><span style="font-size: 0.6rem; opacity: 0.5;">平台原始職缺 ID</span></th>
+                    <th>Company Source ID<br><span style="font-size: 0.6rem; opacity: 0.5;">引用 tb_companies.source_id</span></th>
+                    <th>Title<br><span style="font-size: 0.6rem; opacity: 0.5;">職缺標題</span></th>
+                    <th>Salary<br><span style="font-size: 0.6rem; opacity: 0.5;">薪資</span></th>
+                    <th>Country<br><span style="font-size: 0.6rem; opacity: 0.5;">國家</span></th>
+                    <th>Address<br><span style="font-size: 0.6rem; opacity: 0.5;">工作地址</span></th>
+                    <th>Region<br><span style="font-size: 0.6rem; opacity: 0.5;">地區 (縣市)</span></th>
+                    <th>District<br><span style="font-size: 0.6rem; opacity: 0.5;">行政區 (縣市+鄉鎮市區)</span></th>
+                    <th>Experience<br><span style="font-size: 0.6rem; opacity: 0.5;">最低經驗年次</span></th>
+                    <th>Education<br><span style="font-size: 0.6rem; opacity: 0.5;">學歷要求</span></th>
+                    <th>Skills<br><span style="font-size: 0.6rem; opacity: 0.5;">技能要求</span></th>
+                    <th>Posted At<br><span style="font-size: 0.6rem; opacity: 0.5;">刊登日期</span></th>
+                    <th>Valid Through<br><span style="font-size: 0.6rem; opacity: 0.5;">截止日期</span></th>
+                    <th>Updated At<br><span style="font-size: 0.6rem; opacity: 0.5;">最後更新時間</span></th>
+                    <th>Action<br><span style="font-size: 0.6rem; opacity: 0.5;">操作</span></th>
+                `;
+                const filtered = jobs.filter(j =>
+                    j.title.toLowerCase().includes(query) ||
+                    (j.company_source_id && j.company_source_id.toLowerCase().includes(query)) ||
+                    (j.source_id && j.source_id.toLowerCase().includes(query))
+                );
+                filtered.forEach(j => {
+                    const row = document.createElement('tr');
+                    row.id = `job-${j.source_id}`;
+                    row.innerHTML = `
+                        <td style="font-family: monospace; opacity: 0.6;">${j.id}</td>
+                        <td><span style="background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem;">${j.platform}</span></td>
+                        <td>
+                            <div class="id-link" onclick="highlightRow('job-${j.source_id}')" title="Click to Highlight">
+                                <i data-lucide="hash" style="width: 12px; height: 12px; vertical-align: middle;"></i>
+                                ${j.source_id}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="id-link" onclick="jumpTo('${j.company_source_id}')" title="Jump to Company Details">
+                                <i data-lucide="link" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i>
+                                ${j.company_source_id}
+                            </div>
+                        </td>
+                        <td style="font-weight: 600; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${j.title}">${j.title}</td>
+                        <td class="salary">${formatVal(j.salary_text)}</td>
+                        <td style="font-size: 0.85rem;">${formatVal(j.address_country || '台灣')}</td>
+                        <td style="font-size: 0.85rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${j.address}">${formatVal(j.address)}</td>
+                        <td style="font-size: 0.85rem;">${formatVal(j.region)}</td>
+                        <td style="font-size: 0.85rem; color: #4facfe;">${formatVal(j.district)}</td>
+                        <td style="text-align: center;">${formatVal(j.experience_min_years)}</td>
+                        <td style="font-size: 0.85rem;">${formatVal(j.education_text)}</td>
+                        <td style="font-size: 0.8rem; opacity: 0.7; font-style: italic;">${j.skills ? j.skills.substring(0, 30) + '...' : formatVal(null)}</td>
+                        <td style="font-size: 0.85rem; white-space: nowrap;">${formatVal(j.posted_at)}</td>
+                        <td style="font-size: 0.85rem; white-space: nowrap;">${formatVal(j.valid_through)}</td>
+                        <td style="font-size: 0.75rem; opacity: 0.5;">${j.updated_at ? j.updated_at.replace('T', ' ').split('.')[0] : formatVal(null)}</td>
+                        <td><a href="${j.url}" target="_blank" class="ext-link"><i data-lucide="external-link"></i></a></td>
+                    `;
+                    body.appendChild(row);
+                });
+            } else if (activeTab === 'companies') {
+                head.innerHTML = `
+                    <th>Name<br><span style="font-size: 0.6rem; opacity: 0.5;">公司名稱</span></th>
+                    <th>Source ID<br><span style="font-size: 0.6rem; opacity: 0.5;">平台原始公司 ID</span></th>
+                    <th>Capital<br><span style="font-size: 0.6rem; opacity: 0.5;">資本額</span></th>
+                    <th>Employees<br><span style="font-size: 0.6rem; opacity: 0.5;">員工人數</span></th>
+                    <th>Address<br><span style="font-size: 0.6rem; opacity: 0.5;">公司地址</span></th>
+                `;
+                const filtered = companies.filter(c => c.name.toLowerCase().includes(query) || c.source_id.toLowerCase().includes(query));
+                filtered.forEach(c => {
+                    const row = document.createElement('tr');
+                    row.id = `comp-${c.source_id}`;
+                    row.innerHTML = `
+                        <td style="font-weight: 700; color: #a5b4fc;">${c.name}</td>
+                        <td>
+                            <div class="id-link" onclick="jumpToJobs('${c.source_id}')" style="font-family: monospace; font-size: 0.8rem;">
+                                <i data-lucide="briefcase" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i>
+                                ${c.source_id}
+                            </div>
+                        </td>
+                        <td>${c.capital && c.capital !== 'None' ? parseInt(c.capital).toLocaleString() + ' TWD' : formatVal(null)}</td>
+                        <td>${formatVal(c.employee_count)}</td>
+                        <td style="font-size: 0.85rem; color: var(--text-dim); max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${c.address}">${formatVal(c.address)}</td>
+                    `;
+                    body.appendChild(row);
+                });
+            } else if (activeTab === 'health') {
+                head.innerHTML = `
+                    <th>Platform</th>
+                    <th>Status</th>
+                    <th>Success Rate</th>
+                    <th>Extraction Rate</th>
+                    <th>Avg Latency</th>
+                    <th>Total Requests</th>
+                    <th>Last Error</th>
+                    <th>Updated At</th>
+                `;
+                health_data.forEach(h => {
+                    const row = document.createElement('tr');
+                    const rate = h.total_requests > 0 ? ((h.success_requests / h.total_requests) * 100).toFixed(1) : 0;
+                    const exRate = h.total_requests > 0 ? ((h.extraction_success / h.total_requests) * 100).toFixed(1) : 0;
+                    const statusColor = h.status === 'green' ? '#10b981' : (h.status === 'yellow' ? '#f59e0b' : (h.status === 'red' ? '#ef4444' : '#64748b'));
+
+                    row.innerHTML = `
+                        <td style="font-weight: 700;">${h.platform}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 12px; height: 12px; border-radius: 50%; background: ${statusColor}; box-shadow: 0 0 8px ${statusColor}"></div>
+                                <span style="text-transform: uppercase; font-size: 0.7rem; font-weight: 800; color: ${statusColor}">${h.status}</span>
+                            </div>
+                        </td>
+                        <td class="salary">${rate}%</td>
+                        <td style="color: #6366f1; font-weight: 600;">${exRate}%</td>
+                        <td style="font-family: monospace;">${h.avg_latency_ms}ms</td>
+                        <td>${h.total_requests}</td>
+                        <td style="font-size: 0.75rem; color: #ef4444; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${h.last_error}">${formatVal(h.last_error)}</td>
+                        <td style="font-size: 0.75rem; opacity: 0.5;">${h.updated_at ? h.updated_at.replace('T', ' ').split('.')[0] : formatVal(null)}</td>
+                    `;
+                    body.appendChild(row);
+                });
+            }
+            lucide.createIcons();
+        }
+
+        function jumpTo(id) {
+            if (!id || id === 'None') return;
+            activeTab = 'companies';
+            // Clear search to ensure the target is visible
+            document.getElementById('search-input').value = '';
+
+            document.getElementById('tab-jobs').classList.remove('active');
+            document.getElementById('tab-companies').classList.add('active');
+
+            render();
+
+            setTimeout(() => {
+                const el = document.getElementById(`comp-${id}`);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.classList.add('highlighter');
+                    setTimeout(() => el.classList.remove('highlighter'), 3000);
+                } else {
+                    console.warn(`Company with ID ${id} not found in current list.`);
+                }
+            }, 100);
+        }
+
+        function jumpToJobs(compId) {
+            if (!compId || compId === 'None') return;
+            activeTab = 'jobs';
+
+            document.getElementById('tab-companies').classList.remove('active');
+            document.getElementById('tab-jobs').classList.add('active');
+
+            // Set search input to company ID to filter jobs
+            document.getElementById('search-input').value = compId;
+
+            render();
+        }
+
+        function highlightRow(rowId) {
+            const el = document.getElementById(rowId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.classList.add('highlighter');
+                setTimeout(() => el.classList.remove('highlighter'), 3000);
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
